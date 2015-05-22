@@ -17,10 +17,8 @@ __status__ = "Production"
 
 import general
 from general import x
-from scopen import scOpen
 import app
 import version
-import os
 
 # The version of this module, used to prevent the same script version to be
 # executed more then once on the same host.
