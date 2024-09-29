@@ -3,6 +3,7 @@
 General python functions that don't fit in it's own file.
 
 '''
+import secrets
 
 __author__ = "daniel.lindh@cybercow.se"
 __copyright__ = "Copyright 2011, The System Console project"
@@ -12,8 +13,6 @@ __credits__ = ["???"]
 __license__ = "???"
 __version__ = "1.0.0"
 __status__ = "Production"
-
-from random import choice
 from socket import *
 import glob
 import hashlib
@@ -159,7 +158,7 @@ def urlretrive(src_url, dst_filename):
 punctuation = '!#$%()*+,-./:;<=>?@[\]^_{|}~'
 def generate_password(length=8, chars=string.letters + string.digits + punctuation):
   '''Generate a random password'''
-  return ''.join([choice(chars) for i in range(length)])
+  return ''.join([secrets.choice(chars) for i in range(length)])
 
 def is_server_alive(server, port, proto='tcp'):
   '''
