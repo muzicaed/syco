@@ -3,6 +3,7 @@
 General python functions that don't fit in it's own file.
 
 '''
+from security import safe_command
 
 __author__ = "daniel.lindh@cybercow.se"
 __copyright__ = "Copyright 2011, The System Console project"
@@ -196,8 +197,7 @@ def wait_for_server_to_start(server, port):
 
 def wait_for_procesess_to_finish(name):
   while(True):
-    num_of_processes = subprocess.Popen(
-      "ps aux | grep " + name, stdout=subprocess.PIPE, shell=True
+    num_of_processes = safe_command.run(subprocess.Popen, "ps aux | grep " + name, stdout=subprocess.PIPE, shell=True
     ).communicate()[0].count("\n")
     if num_of_processes <=2:
       break
@@ -330,7 +330,7 @@ def x_communicate(command, user = "", output = X_OUTPUT_ALL, cwd=None):
   if (output > X_OUTPUT_NONE):
     app.print_verbose(BOLD + "Command: " + RESET + command)
 
-  p = subprocess.Popen(command, shell=True, cwd=cwd)
+  p = safe_command.run(subprocess.Popen, command, shell=True, cwd=cwd)
   (stdout, stderr) = p.communicate()
 
 
@@ -351,7 +351,7 @@ def x(command, user = "", output = X_OUTPUT_ALL, cwd=None):
   if (output > X_OUTPUT_NONE):
     app.print_verbose(BOLD + "Command: " + RESET + command)
 
-  p = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=cwd)
+  p = safe_command.run(subprocess.Popen, command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=cwd)
 
   return handle_subprocess(p, output)
 
