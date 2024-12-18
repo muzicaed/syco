@@ -457,13 +457,13 @@ def set_config_property2(file_name, replace_exp):
 
 
 def md5checksum(filePath):
-    fh = open(filePath, 'rb')
-    m = hashlib.md5()
-    while True:
-        data = fh.read(8192)
-        if not data:
-            break
-        m.update(data)
+    with open(filePath, 'rb') as fh:
+      m = hashlib.md5()
+      while True:
+          data = fh.read(8192)
+          if not data:
+              break
+          m.update(data)
     return m.hexdigest()
 
 
