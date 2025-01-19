@@ -3,6 +3,7 @@
 Functions that will help installing yum and rpm packages.
 
 '''
+from security import safe_command
 
 __author__ = "daniel.lindh@cybercow.se"
 __copyright__ = "Copyright 2011, The System Console project"
@@ -140,6 +141,6 @@ def rpm_remove(name):
 
 def x(cmd):
   print("\t" + BOLD + "Command: " + RESET + cmd)
-  p = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)
+  p = safe_command.run(subprocess.Popen, cmd, shell=True, stdout=subprocess.PIPE)
   stdoutdata = p.communicate()[0]
   return stdoutdata

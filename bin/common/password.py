@@ -8,6 +8,7 @@ import password
 print password.svn
 print password.mysql
 '''
+from security import safe_command
 
 __author__ = "daniel.lindh@cybercow.se"
 __copyright__ = "Copyright 2011, The System Console project"
@@ -68,7 +69,7 @@ def get_root_password_hash():
 
   '''
   root_password = get_root_password()
-  p = subprocess.Popen("openssl passwd -1 '" + root_password + "'", stdout=subprocess.PIPE, shell=True)
+  p = safe_command.run(subprocess.Popen, "openssl passwd -1 '" + root_password + "'", stdout=subprocess.PIPE, shell=True)
   hash_root_password, stderr = p.communicate()
   return str(hash_root_password.strip())
 
