@@ -47,13 +47,13 @@ def harden_password():
     # Disable users with empty passwords in the shadow file.
     #
     app.print_verbose("Disable users with empty passwords in the shadow file.")
-    shadow = open("/etc/shadow")
-    for line in shadow:
-        shadowpass = line.split(':')[1]
-        shadowuser = line.split(':')[0]
-        if shadowpass.strip() == "":
-            x("usermod -L -s /dev/null " + shadowuser)
-            app.print_verbose("Diable user %s with empty password." %  shadowuser)
+    with open("/etc/shadow") as shadow:
+        for line in shadow:
+            shadowpass = line.split(':')[1]
+            shadowuser = line.split(':')[0]
+            if shadowpass.strip() == "":
+                x("usermod -L -s /dev/null " + shadowuser)
+                app.print_verbose("Diable user %s with empty password." %  shadowuser)
 
     #
     # Modify locked accounts in /etc/shadow by replacing * and ! to !!
